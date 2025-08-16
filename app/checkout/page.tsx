@@ -144,11 +144,11 @@ export default function CheckoutPage() {
               </div>
               <div className="flex items-center gap-1">
                 <span className="text-green-500">✓</span>
-                <span>14-day guarantee</span>
+                <span>"Peace of Mind" Guarantee</span>
               </div>
               <div className="flex items-center gap-1">
                 <span className="text-green-500">✓</span>
-                <span>Expert specialists</span>
+                <span>Top 1% veterinary specialist</span>
               </div>
             </div>
           </div>
