@@ -439,7 +439,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                       <div className="absolute -top-10 -left-10 w-20 h-20 bg-white/10 rounded-full blur-xl group-hover:scale-150 transition-transform duration-1000 delay-300"></div>
                       <div className="relative text-center">
                         <h2 className="font-serif text-2xl font-bold mb-2 group-hover:scale-105 transition-transform duration-500">
-                          Book with Dr. Hayes
+                          Book with {specialist.name.split(" ")[1]}
                         </h2>
                         <p className="text-white/95 text-sm">Start your consultation today</p>
                       </div>
@@ -483,8 +483,8 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                         </h3>
                         <ul className="space-y-4 text-sm text-brand-charcoal/90">
                           {[
-                            `A private, 14-day conversation with Dr. Hayes to discuss your pet's case.`,
-                            `Personal video responses from Dr. Hayes that you can rewatch anytime.`,
+                            `A private, 14-day conversation with ${specialist.name.split(" ")[1]} to discuss your pet's case.`,
+                            `Personal video responses from ${specialist.name.split(" ")[1]} that you can rewatch anytime.`,
                             "The ability to ask unlimited follow-up questions as they arise.",
                             "A collaborative plan that accounts for your family's needs—emotionally and financially.",
                             'Backed by our "Peace of Mind" Guarantee.',
@@ -528,7 +528,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                             />
                           </svg>
-                          Start Consultation with Dr. Hayes
+                          Start Consultation with {specialist.name.split(" ")[1]}
                           <svg
                             className="w-5 h-5 group-hover/cta:translate-x-2 group-hover/cta:scale-110 transition-all duration-300"
                             fill="none"
@@ -917,8 +917,8 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                         </h3>
                         <ul className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-brand-charcoal/90">
                           {[
-                            `A private, 14-day conversation with Dr. Hayes to discuss your pet's case.`,
-                            `Personal video responses from Dr. Hayes that you can rewatch anytime.`,
+                            `A private, 14-day conversation with ${specialist.name.split(" ")[1]} to discuss your pet's case.`,
+                            `Personal video responses from ${specialist.name.split(" ")[1]} that you can rewatch anytime.`,
                             "The ability to ask unlimited follow-up questions as they arise.",
                             "A collaborative plan that accounts for your family's needs—emotionally and financially.",
                             'Backed by our "Peace of Mind" Guarantee.',
