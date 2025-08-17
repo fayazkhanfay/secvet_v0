@@ -6,6 +6,7 @@ import Image from "next/image"
 const specialists = [
   {
     id: 1,
+    slug: "marcus-chen",
     name: "Dr. Marcus Chen",
     credentials: "DVM, DACVIM (Oncology)",
     specialty: "oncology",
@@ -15,6 +16,7 @@ const specialists = [
   },
   {
     id: 2,
+    slug: "evelyn-reed",
     name: "Dr. Evelyn Reed",
     credentials: "DVM, DACVIM (Cardiology)",
     specialty: "cardiology",
@@ -23,6 +25,7 @@ const specialists = [
   },
   {
     id: 3,
+    slug: "anya-patel",
     name: "Dr. Anya Patel",
     credentials: "DVM, DACVS (Surgery)",
     specialty: "surgery",
@@ -31,6 +34,7 @@ const specialists = [
   },
   {
     id: 4,
+    slug: "isaac-hayes",
     name: "Dr. Isaac Hayes",
     credentials: "DVM, DACVIM (Neurology)",
     specialty: "neurology",
@@ -39,6 +43,7 @@ const specialists = [
   },
   {
     id: 5,
+    slug: "sofia-ortega",
     name: "Dr. Sofia Ortega",
     credentials: "DVM, DACVIM (SAIM)",
     specialty: "internal-medicine",
@@ -47,6 +52,7 @@ const specialists = [
   },
   {
     id: 6,
+    slug: "eleanor-vance",
     name: "Dr. Eleanor Vance",
     credentials: "DVM, DACVIM (Oncology)",
     specialty: "oncology",
@@ -181,7 +187,7 @@ export function SpecialistsGrid() {
 
                 <div className="mt-6 sm:mt-8">
                   <a
-                    href={`/specialists/${specialist.id}`}
+                    href={`/specialists/${specialist.slug}`}
                     className="inline-block group/btn relative overflow-hidden rounded-full bg-white px-6 py-3 sm:px-8 sm:py-4 text-xs sm:text-sm font-semibold text-brand-sage shadow-xl ring-2 ring-brand-sage/20 transition-all duration-300 hover:shadow-2xl hover:scale-110 hover:ring-brand-gold/40 min-h-[44px] flex items-center justify-center"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-brand-sage/10 to-brand-gold/10 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>

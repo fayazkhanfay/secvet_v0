@@ -13,10 +13,51 @@ import { Footer } from "@/components/footer"
 const doctorData = {
   "isaac-hayes": {
     id: "isaac-hayes",
+    slug: "isaac-hayes",
     name: "Dr. Isaac Hayes",
     credentials: "DVM, DACVIM (Neurology)",
     image: "/placeholder.svg?height=64&width=64",
     firstName: "Dr. Hayes",
+  },
+  "marcus-chen": {
+    id: "marcus-chen",
+    slug: "marcus-chen",
+    name: "Dr. Marcus Chen",
+    credentials: "DVM, DACVIM (Oncology)",
+    image: "/placeholder.svg?height=64&width=64",
+    firstName: "Dr. Chen",
+  },
+  "evelyn-reed": {
+    id: "evelyn-reed",
+    slug: "evelyn-reed",
+    name: "Dr. Evelyn Reed",
+    credentials: "DVM, DACVIM (Cardiology)",
+    image: "/placeholder.svg?height=64&width=64",
+    firstName: "Dr. Reed",
+  },
+  "anya-patel": {
+    id: "anya-patel",
+    slug: "anya-patel",
+    name: "Dr. Anya Patel",
+    credentials: "DVM, DACVS (Surgery)",
+    image: "/placeholder.svg?height=64&width=64",
+    firstName: "Dr. Patel",
+  },
+  "sofia-ortega": {
+    id: "sofia-ortega",
+    slug: "sofia-ortega",
+    name: "Dr. Sofia Ortega",
+    credentials: "DVM, DACVIM (SAIM)",
+    image: "/placeholder.svg?height=64&width=64",
+    firstName: "Dr. Ortega",
+  },
+  "eleanor-vance": {
+    id: "eleanor-vance",
+    slug: "eleanor-vance",
+    name: "Dr. Eleanor Vance",
+    credentials: "DVM, DACVIM (Oncology)",
+    image: "/placeholder.svg?height=64&width=64",
+    firstName: "Dr. Vance",
   },
 }
 

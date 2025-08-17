@@ -7,8 +7,105 @@ import { Footer } from "@/components/footer"
 
 // Mock data for specialists - in a real app, this would come from a database
 const specialists = {
-  "4": {
-    id: "4",
+  "marcus-chen": {
+    id: 1,
+    slug: "marcus-chen",
+    name: "Dr. Marcus Chen",
+    credentials: "DVM, DACVIM (Oncology)",
+    image: "/placeholder.svg?height=400&width=400",
+    videoThumbnail: "/placeholder.svg?height=720&width=1280",
+    specialties: ["Cancer Treatment", "Chemotherapy", "Radiation Therapy", "Palliative Care"],
+    animals: ["Dog", "Cat"],
+    education: {
+      veterinarySchool: "University of California, Davis",
+      residency: "Colorado State University",
+      boardCertification: "American College of Veterinary Internal Medicine (Oncology)",
+      yearsInPractice: 12,
+    },
+    caseStudy: {
+      problem:
+        "A family came to me with Luna, a golden retriever diagnosed with lymphoma. Their local vet recommended immediate chemotherapy, but the family was overwhelmed and unsure about the treatment options.",
+      approach:
+        "I took the time to explain every treatment option, from aggressive chemotherapy to palliative care. I created a personalized treatment plan that considered Luna's age, the family's financial situation, and their emotional capacity to handle intensive treatment.",
+      result:
+        "The family chose a modified chemotherapy protocol. Luna responded beautifully and is now in remission. Most importantly, the family felt empowered and confident in their decision. This case reinforced my belief that the best treatment plan is one that the family can fully commit to and understand.",
+    },
+    testimonials: [
+      {
+        title: "He gave us clarity when we were lost.",
+        quote:
+          "When our golden retriever was diagnosed with lymphoma, we were devastated and confused. Dr. Chen didn't just give us a second opinion; he gave us a clear, step-by-step plan that honored our goals and our budget. Luna is now in remission and we feel confident about every decision we made.",
+        author: "Jennifer L., parent to Luna",
+      },
+    ],
+  },
+  "evelyn-reed": {
+    id: 2,
+    slug: "evelyn-reed",
+    name: "Dr. Evelyn Reed",
+    credentials: "DVM, DACVIM (Cardiology)",
+    image: "/placeholder.svg?height=400&width=400",
+    videoThumbnail: "/placeholder.svg?height=720&width=1280",
+    specialties: ["Heart Disease", "Cardiac Ultrasound", "Congestive Heart Failure", "Arrhythmias"],
+    animals: ["Dog", "Cat"],
+    education: {
+      veterinarySchool: "Cornell University",
+      residency: "North Carolina State University",
+      boardCertification: "American College of Veterinary Internal Medicine (Cardiology)",
+      yearsInPractice: 15,
+    },
+    caseStudy: {
+      problem:
+        "A family brought in Max, a dachshund with a heart murmur. Their regular vet was concerned but couldn't provide a clear diagnosis or treatment plan.",
+      approach:
+        "I performed a comprehensive cardiac workup including echocardiography and ECG. I discovered Max had mitral valve disease, but it was in early stages. I created a detailed monitoring plan and explained exactly what to watch for.",
+      result:
+        "Max is now on a carefully managed treatment plan. His condition is stable and the family knows exactly what signs to watch for. They feel confident and in control of Max's care.",
+    },
+    testimonials: [
+      {
+        title: "She drew diagrams and walked us through everything.",
+        quote:
+          "Our dachshund Max has a heart condition, and we were terrified. Dr. Reed was incredible. She drew diagrams, explained every test result, and created a monitoring plan that made us feel in control. For the first time, we understood what was happening and what to expect.",
+        author: "Michael R., parent to Max",
+      },
+    ],
+  },
+  "anya-patel": {
+    id: 3,
+    slug: "anya-patel",
+    name: "Dr. Anya Patel",
+    credentials: "DVM, DACVS (Surgery)",
+    image: "/placeholder.svg?height=400&width=400",
+    videoThumbnail: "/placeholder.svg?height=720&width=1280",
+    specialties: ["Soft Tissue Surgery", "Orthopedic Surgery", "Minimally Invasive Procedures", "Emergency Surgery"],
+    animals: ["Dog", "Cat"],
+    education: {
+      veterinarySchool: "University of Pennsylvania",
+      residency: "University of Florida",
+      boardCertification: "American College of Veterinary Surgeons",
+      yearsInPractice: 10,
+    },
+    caseStudy: {
+      problem:
+        "A family was told their cat needed major abdominal surgery for a foreign body. They were concerned about the invasiveness and recovery time.",
+      approach:
+        "I reviewed the case and realized we could use a minimally invasive approach. I explained the benefits of laparoscopy and created a detailed recovery plan that would minimize stress for both the cat and the family.",
+      result:
+        "The surgery was successful with minimal trauma. The cat recovered much faster than expected, and the family was amazed at how smooth the entire process was.",
+    },
+    testimonials: [
+      {
+        title: "That single conversation about a less invasive approach saved us so much stress and money.",
+        quote:
+          "Our cat needed surgery and we were terrified. Dr. Patel reviewed the case and suggested a minimally invasive approach we hadn't even heard of. It was more expensive upfront but saved us so much in recovery time and stress. Our cat was back to normal in days instead of weeks.",
+        author: "Sarah M., parent to Whiskers",
+      },
+    ],
+  },
+  "isaac-hayes": {
+    id: 4,
+    slug: "isaac-hayes",
     name: "Dr. Isaac Hayes",
     credentials: "DVM, DACVIM (Neurology)",
     image: "/placeholder.svg?height=400&width=400",
@@ -44,11 +141,75 @@ const specialists = {
       },
     ],
   },
+  "sofia-ortega": {
+    id: 5,
+    slug: "sofia-ortega",
+    name: "Dr. Sofia Ortega",
+    credentials: "DVM, DACVIM (SAIM)",
+    image: "/placeholder.svg?height=400&width=400",
+    videoThumbnail: "/placeholder.svg?height=720&width=1280",
+    specialties: ["Gastrointestinal Disease", "Liver Disease", "Endocrine Disorders", "Chronic Illness Management"],
+    animals: ["Dog", "Cat"],
+    education: {
+      veterinarySchool: "University of California, Davis",
+      residency: "University of Wisconsin",
+      boardCertification: "American College of Veterinary Internal Medicine (Small Animal Internal Medicine)",
+      yearsInPractice: 11,
+    },
+    caseStudy: {
+      problem:
+        "A family was struggling with their cat's chronic vomiting and weight loss. Multiple vets had tried different treatments without success.",
+      approach:
+        "I took a systematic approach, reviewing all previous treatments and creating a comprehensive diagnostic plan. I discovered an underlying food allergy that had been missed. I created a detailed dietary management plan.",
+      result:
+        "The cat is now thriving on a specialized diet. The family finally has answers and a clear path forward. This case shows the importance of looking beyond obvious symptoms to find root causes.",
+    },
+    testimonials: [
+      {
+        title: "We discovered the underlying issue wasn't what everyone thought.",
+        quote:
+          "Our cat had been vomiting for months and losing weight. We'd seen three different vets and tried countless treatments. Dr. Ortega took a completely different approach and discovered it was a food allergy. Now our cat is healthy and happy. It changed everything.",
+        author: "David L., parent to Shadow",
+      },
+    ],
+  },
+  "eleanor-vance": {
+    id: 6,
+    slug: "eleanor-vance",
+    name: "Dr. Eleanor Vance",
+    credentials: "DVM, DACVIM (Oncology)",
+    image: "/placeholder.svg?height=400&width=400",
+    videoThumbnail: "/placeholder.svg?height=720&width=1280",
+    specialties: ["Cancer Treatment", "Palliative Care", "Quality of Life Assessment", "Family Support"],
+    animals: ["Dog", "Cat"],
+    education: {
+      veterinarySchool: "Tufts University",
+      residency: "University of Minnesota",
+      boardCertification: "American College of Veterinary Internal Medicine (Oncology)",
+      yearsInPractice: 13,
+    },
+    caseStudy: {
+      problem:
+        "A family was told their elderly dog had an aggressive cancer with limited treatment options. They were devastated and unsure how to proceed.",
+      approach:
+        "I reviewed the case and found that while the cancer was advanced, there were still treatment options that could improve quality of life. I created a palliative care plan that focused on comfort and family support.",
+      result:
+        "The dog lived six more months with excellent quality of life. The family felt supported and confident in their decisions. This case reinforced my belief that every family deserves compassionate guidance through difficult decisions.",
+    },
+    testimonials: [
+      {
+        title: "We found a path forward that gave us six more beautiful, happy months with our boy.",
+        quote:
+          "When our elderly golden was diagnosed with cancer, we were told there was nothing more to do. Dr. Vance found treatment options that gave us six more beautiful months together. She supported us every step of the way and helped us make the best decisions for our boy.",
+        author: "Lisa T., parent to Buddy",
+      },
+    ],
+  },
 }
 
 interface PageProps {
   params: Promise<{
-    id: string
+    slug: string
   }>
 }
 
@@ -62,7 +223,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
   useEffect(() => {
     const getSpecialist = async () => {
       const resolvedParams = await params
-      const foundSpecialist = specialists[resolvedParams.id as keyof typeof specialists]
+      const foundSpecialist = specialists[resolvedParams.slug as keyof typeof specialists]
       setSpecialist(foundSpecialist)
     }
     getSpecialist()
@@ -206,7 +367,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                       />
                     </svg>
                   </span>
-                  Hear Directly From Dr. Hayes
+                  Hear Directly From {specialist.name.split(" ")[1]}
                 </h2>
                 <div className="relative">
                   <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-brand-sage/15 via-transparent to-brand-gold/15 rounded-2xl sm:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
@@ -349,10 +510,10 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                         </ul>
                       </div>
 
-                      <a
-                        href="/checkout?doctor=isaac-hayes"
-                        className="group/cta relative w-full inline-flex items-center justify-center rounded-full border border-transparent bg-gradient-to-r from-brand-gold to-brand-sage px-8 py-5 text-lg font-bold text-white shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 focus:scale-105 focus:outline-none overflow-hidden min-h-[56px]"
-                      >
+                                          <a
+                      href={`/checkout?doctor=${specialist.slug}`}
+                      className="group/cta relative w-full inline-flex items-center justify-center rounded-full border border-transparent bg-gradient-to-r from-brand-gold to-brand-sage px-8 py-5 text-lg font-bold text-white shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 focus:scale-105 focus:outline-none overflow-hidden min-h-[56px]"
+                    >
                         <span className="relative z-10 flex items-center gap-3 text-center">
                           <svg
                             className="w-6 h-6 group-hover/cta:scale-110 group-hover/cta:rotate-12 transition-all duration-300"
@@ -786,7 +947,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                       </div>
 
                       <a
-                        href="/checkout?doctor=isaac-hayes"
+                        href={`/checkout?doctor=${specialist.slug}`}
                         className="group relative w-full inline-flex items-center justify-center rounded-full border border-transparent bg-gradient-to-r from-brand-gold to-brand-sage px-4 sm:px-6 lg:px-8 py-4 sm:py-5 text-sm sm:text-base lg:text-lg font-bold text-white shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 focus:scale-105 focus:outline-none overflow-hidden min-h-[56px]"
                       >
                         <span className="relative z-10 flex items-center gap-2 sm:gap-3 text-center">
@@ -803,7 +964,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                               d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                             />
                           </svg>
-                          <span className="hidden sm:inline">Start Consultation with Dr. Hayes</span>
+                          <span className="hidden sm:inline">Start Consultation with {specialist.name.split(" ")[1]}</span>
                           <span className="sm:hidden">Start Consultation</span>
                           <svg
                             className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300"
@@ -877,7 +1038,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                 <div className="flex-1 min-w-0">
                   {stickyFooterPhase === "soft" ? (
                     <p className="text-sm font-semibold text-brand-charcoal truncate transition-all duration-300">
-                      Dr. Hayes
+                      {specialist.name.split(" ")[1]}
                     </p>
                   ) : (
                     <p className="text-sm font-semibold text-brand-charcoal truncate transition-all duration-300">
@@ -895,7 +1056,7 @@ export default function SpecialistProfilePage({ params }: PageProps) {
                   </button>
                 ) : (
                   <a
-                    href="/checkout?doctor=isaac-hayes"
+                    href={`/checkout?doctor=${specialist.slug}`}
                     className="bg-gradient-to-r from-brand-gold to-brand-sage text-white px-6 py-3 rounded-full font-bold text-sm shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex-shrink-0 relative overflow-hidden group/sticky"
                   >
                     <span className="relative z-10">Start Now</span>

@@ -18,6 +18,31 @@ export default function PaymentSuccessPage() {
       photo: "/placeholder.svg?height=96&width=96&text=Dr.+Hayes",
       specialty: "Veterinary Neurologist",
     },
+    "marcus-chen": {
+      name: "Dr. Marcus Chen",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Chen",
+      specialty: "Veterinary Oncologist",
+    },
+    "evelyn-reed": {
+      name: "Dr. Evelyn Reed",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Reed",
+      specialty: "Veterinary Cardiologist",
+    },
+    "anya-patel": {
+      name: "Dr. Anya Patel",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Patel",
+      specialty: "Veterinary Surgeon",
+    },
+    "sofia-ortega": {
+      name: "Dr. Sofia Ortega",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Ortega",
+      specialty: "Veterinary Internal Medicine",
+    },
+    "eleanor-vance": {
+      name: "Dr. Eleanor Vance",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Vance",
+      specialty: "Veterinary Oncologist",
+    },
   }
 
   const selectedDoctor = doctorParam ? doctorData[doctorParam as keyof typeof doctorData] : null
