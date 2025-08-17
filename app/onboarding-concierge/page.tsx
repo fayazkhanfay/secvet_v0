@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ChevronRight, ChevronLeft, Check, Upload, FileText, Heart, Clock, Shield } from "lucide-react"
 
@@ -17,12 +17,77 @@ export default function OnboardingConciergePage() {
   })
   const [showReassurance, setShowReassurance] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [lastSaved, setLastSaved] = useState<Date | null>(null)
+
 
   const steps = [
     { id: 1, title: "Pet Details", description: "Tell us about your pet" },
     { id: 2, title: "Your Story", description: "Share what's happening" },
     { id: 3, title: "Upload Files", description: "Add medical records (optional)" }
   ]
+
+  // Load saved draft on component mount
+  useEffect(() => {
+    const savedDraft = localStorage.getItem('onboarding-concierge-draft')
+    if (savedDraft) {
+      try {
+        const parsed = JSON.parse(savedDraft)
+        // Note: We can't restore File objects from localStorage, so we only restore text fields
+        setFormData(prev => ({
+          ...prev,
+          petName: parsed.petName || "",
+          animalType: parsed.animalType || "Dog",
+          specialty: parsed.specialty || "",
+          story: parsed.story || ""
+        }))
+        setLastSaved(new Date(parsed.lastSaved))
+      } catch (error) {
+        console.error('Error loading saved draft:', error)
+      }
+    }
+  }, [])
+
+  // Auto-save function
+  const saveDraft = useCallback(async () => {
+    try {
+      // Save text fields to localStorage
+      const draftData = {
+        petName: formData.petName,
+        animalType: formData.animalType,
+        specialty: formData.specialty,
+        story: formData.story,
+        lastSaved: new Date().toISOString()
+      }
+      
+      localStorage.setItem('onboarding-concierge-draft', JSON.stringify(draftData))
+      setLastSaved(new Date())
+      
+      // In a real app, you might also want to save to your backend here
+      // await fetch('/api/drafts', { method: 'POST', body: JSON.stringify(draftData) })
+      
+    } catch (error) {
+      console.error('Error saving draft:', error)
+    }
+  }, [formData])
+
+  // Auto-save on form data changes (with debouncing)
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (formData.petName || formData.specialty || formData.story) {
+        saveDraft()
+      }
+    }, 2000) // Auto-save after 2 seconds of inactivity
+
+    return () => clearTimeout(timeoutId)
+  }, [formData.petName, formData.specialty, formData.story, saveDraft])
+
+
+
+  // Clear draft after successful submission
+  const clearDraft = () => {
+    localStorage.removeItem('onboarding-concierge-draft')
+    setLastSaved(null)
+  }
 
   useEffect(() => {
     setIsVisible(true)
@@ -61,6 +126,7 @@ export default function OnboardingConciergePage() {
 
   const handleSubmit = () => {
     setIsSubmitted(true)
+    clearDraft() // Clear draft after successful submission
     // Here you would typically send the data to your backend
     console.log("Form submitted:", formData)
   }
@@ -206,10 +272,20 @@ export default function OnboardingConciergePage() {
             </p>
           </div>
 
+          {/* Auto-save Status */}
+          {lastSaved && (
+            <div className="mt-4 text-center transition-all duration-500">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 border border-green-200 rounded-full text-xs text-green-700">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span>Auto-saved {lastSaved.toLocaleTimeString()}</span>
+              </div>
+            </div>
+          )}
+
           {/* Onboarding Form Container */}
           <div 
             id="onboarding-container" 
-            className={`mt-12 bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/30 overflow-hidden transition-all duration-1000 delay-300 ${
+            className={`mt-8 bg-white/95 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/30 overflow-hidden transition-all duration-1000 delay-300 ${
               showElements ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
@@ -381,7 +457,7 @@ export default function OnboardingConciergePage() {
               )}
 
               {/* Navigation Buttons */}
-              <div className="mt-8 pt-8 border-t border-gray-200 flex justify-between items-center">
+              <div className="mt-8 pt-8 border-t border-gray-200 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <button
                   type="button"
                   onClick={handleBack}
@@ -392,6 +468,8 @@ export default function OnboardingConciergePage() {
                   <ChevronLeft className="w-4 h-4 inline mr-1" />
                   Back
                 </button>
+                
+                {/* Next/Submit Button */}
                 <button
                   type="button"
                   onClick={handleNext}
