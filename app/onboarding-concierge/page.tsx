@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
+import { useSearchParams } from "next/navigation"
 import { ChevronRight, ChevronLeft, Check, Upload, FileText, Heart, Clock, Shield } from "lucide-react"
 
 export default function OnboardingConciergePage() {
@@ -19,6 +20,20 @@ export default function OnboardingConciergePage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
 
+  const searchParams = useSearchParams()
+  const doctorParam = searchParams.get("doctor")
+  const isResearchPath = !!doctorParam
+
+  const doctorData = {
+    "isaac-hayes": {
+      name: "Dr. Isaac Hayes",
+      photo: "/placeholder.svg?height=96&width=96&text=Dr.+Hayes",
+      specialty: "Veterinary Neurologist",
+      credentials: "DVM, DACVIM (Neurology)",
+    },
+  }
+
+  const selectedDoctor = doctorParam ? doctorData[doctorParam as keyof typeof doctorData] : null
 
   const steps = [
     { id: 1, title: "Pet Details", description: "Tell us about your pet" },
@@ -81,8 +96,6 @@ export default function OnboardingConciergePage() {
     return () => clearTimeout(timeoutId)
   }, [formData.petName, formData.specialty, formData.story, saveDraft])
 
-
-
   // Clear draft after successful submission
   const clearDraft = () => {
     localStorage.removeItem('onboarding-concierge-draft')
@@ -102,7 +115,7 @@ export default function OnboardingConciergePage() {
   const validateCurrentStep = () => {
     switch (currentStep) {
       case 0:
-        return formData.petName.trim() && formData.specialty
+        return formData.petName.trim() && (isResearchPath ? true : formData.specialty)
       case 1:
         return formData.story.trim().length > 10
       default:
@@ -187,14 +200,33 @@ export default function OnboardingConciergePage() {
 
                 <div className="space-y-4 text-left">
                   <p className="text-brand-charcoal/80 leading-relaxed">
-                    We have received your story and it has been securely sent to our specialist team. You can expect a personal video introduction from your assigned specialist by{" "}
-                    <span className="font-bold text-brand-sage bg-brand-sage/10 px-2 py-1 rounded-lg">
-                      12:00 PM the next business day.
-                    </span>
+                    {isResearchPath && selectedDoctor ? (
+                      <>
+                        We have received your story and it has been securely sent to {selectedDoctor.name}. You can expect a personal video introduction from him by{" "}
+                        <span className="font-bold text-brand-sage bg-brand-sage/10 px-2 py-1 rounded-lg">
+                          12:00 PM the next business day.
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        We have received your story and it has been securely sent to our specialist team. You can expect a personal video introduction from your assigned specialist by{" "}
+                        <span className="font-bold text-brand-sage bg-brand-sage/10 px-2 py-1 rounded-lg">
+                          12:00 PM the next business day.
+                        </span>
+                      </>
+                    )}
                   </p>
                   
                   <p className="text-sm text-brand-charcoal/70 leading-relaxed">
-                    You will receive a notification in your consultation room and via email once your specialist has been assigned.
+                    {isResearchPath && selectedDoctor ? (
+                      <>
+                        You will receive a notification in your consultation room and via email once {selectedDoctor.name} has responded.
+                      </>
+                    ) : (
+                      <>
+                        You will receive a notification in your consultation room and via email once your specialist has been assigned.
+                      </>
+                    )}
                   </p>
                 </div>
 
@@ -262,13 +294,42 @@ export default function OnboardingConciergePage() {
             }`}
           >
             <h1 className="font-serif text-4xl font-bold tracking-tight text-brand-charcoal sm:text-5xl">
-              Welcome. Let's begin.
+              {isResearchPath && selectedDoctor ? (
+                <>
+                  Let's begin your consultation with{" "}
+                  <span className="relative inline-block">
+                    <span className="relative z-10 bg-gradient-to-r from-brand-sage to-brand-gold bg-clip-text text-transparent">
+                      {selectedDoctor.name}
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-brand-sage/20 to-brand-gold/20 blur-lg"></div>
+                  </span>
+                  .
+                </>
+              ) : (
+                "Welcome. Let's begin."
+              )}
             </h1>
             <p className="mt-4 text-lg text-brand-charcoal/80">
-              Please provide the details below. This will be sent directly to our specialist team to start your consultation.
+              {isResearchPath && selectedDoctor ? (
+                <>
+                  You've made an excellent choice. Please provide the details below to get started.
+                </>
+              ) : (
+                <>
+                  Please provide the details below. This will be sent directly to our specialist team to start your consultation.
+                </>
+              )}
             </p>
             <p className="mt-4 text-sm font-semibold text-brand-sage">
-              Take your time. Your 14-day consultation clock doesn't start until your specialist sends their first personal message.
+              {isResearchPath && selectedDoctor ? (
+                <>
+                  Take your time. Your 14-day consultation clock doesn't start until {selectedDoctor.name} sends his first personal message.
+                </>
+              ) : (
+                <>
+                  Take your time. Your 14-day consultation clock doesn't start until your specialist sends their first personal message.
+                </>
+              )}
             </p>
           </div>
 
@@ -359,34 +420,58 @@ export default function OnboardingConciergePage() {
                         <option value="Cat">Cat</option>
                       </select>
                     </div>
-                    <div className="sm:col-span-2">
-                      <label htmlFor="specialty" className="block text-sm font-medium text-brand-charcoal mb-2">
-                        Primary Area of Concern
-                      </label>
-                      <select
-                        id="specialty"
-                        value={formData.specialty}
-                        onChange={(e) => {
-                          updateFormData("specialty", e.target.value)
-                          setShowReassurance(e.target.value === "not-sure")
-                        }}
-                        className="w-full rounded-lg border-gray-300 shadow-sm focus:border-brand-sage focus:ring-brand-sage p-3 transition-all duration-300"
-                        required
-                      >
-                        <option value="" disabled>Select a specialty...</option>
-                        <option value="oncology">Oncology (Cancer)</option>
-                        <option value="cardiology">Cardiology (Heart)</option>
-                        <option value="neurology">Neurology</option>
-                        <option value="surgery">Surgery</option>
-                        <option value="internal-medicine">Internal Medicine</option>
-                        <option value="not-sure">I'm not sure</option>
-                      </select>
-                      {showReassurance && (
-                        <p className="mt-2 text-sm text-brand-sage animate-fade-in-rise">
-                          That's perfectly fine. Our lead internal medicine specialist will personally review your story to ensure you are matched with the correct expert.
-                        </p>
-                      )}
-                    </div>
+                    {!isResearchPath && (
+                      <div className="sm:col-span-2">
+                        <label htmlFor="specialty" className="block text-sm font-medium text-brand-charcoal mb-2">
+                          Primary Area of Concern
+                        </label>
+                        <select
+                          id="specialty"
+                          value={formData.specialty}
+                          onChange={(e) => {
+                            updateFormData("specialty", e.target.value)
+                            setShowReassurance(e.target.value === "not-sure")
+                          }}
+                          className="w-full rounded-lg border-gray-300 shadow-sm focus:border-brand-sage focus:ring-brand-sage p-3 transition-all duration-300"
+                          required
+                        >
+                          <option value="" disabled>Select a specialty...</option>
+                          <option value="oncology">Oncology (Cancer)</option>
+                          <option value="cardiology">Cardiology (Heart)</option>
+                          <option value="neurology">Neurology</option>
+                          <option value="surgery">Surgery</option>
+                          <option value="internal-medicine">Internal Medicine</option>
+                          <option value="not-sure">I'm not sure</option>
+                        </select>
+                        {showReassurance && (
+                          <p className="mt-2 text-sm text-brand-sage animate-fade-in-rise">
+                            That's perfectly fine. Our lead internal medicine specialist will personally review your story to ensure you are matched with the correct expert.
+                          </p>
+                        )}
+                      </div>
+                    )}
+                    {isResearchPath && selectedDoctor && (
+                      <div className="sm:col-span-2">
+                        <div className="p-4 bg-gradient-to-br from-brand-sage/5 to-brand-gold/5 rounded-2xl border border-brand-sage/10">
+                          <div className="flex items-center gap-4">
+                            <img
+                              className="h-16 w-16 rounded-full object-cover ring-2 ring-brand-sage/20 shadow-lg"
+                              src={selectedDoctor.photo}
+                              alt={selectedDoctor.name}
+                            />
+                            <div>
+                              <p className="font-semibold text-brand-charcoal">Your Specialist:</p>
+                              <p className="text-brand-sage">
+                                {selectedDoctor.name}, {selectedDoctor.credentials}
+                              </p>
+                              <p className="text-sm text-brand-charcoal/70 mt-1">
+                                {selectedDoctor.specialty}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -398,7 +483,15 @@ export default function OnboardingConciergePage() {
                     Step 2: The most important part—your story.
                   </h2>
                   <p className="text-sm text-brand-charcoal/80 mb-6 leading-relaxed">
-                    We know this can be difficult to write. Please take your time. This is your private space to share everything you're going through. Don't worry about medical terms or getting it perfect. Just tell us what's been happening, what your primary vet has said, and most importantly, what your biggest questions and fears are right now. The more you share, the better we can help.
+                    {isResearchPath && selectedDoctor ? (
+                      <>
+                        We know this can be difficult to write. Please take your time. This is your private space to share everything you're going through. Don't worry about medical terms or getting it perfect. Just tell us what's been happening, what your primary vet has said, and most importantly, what your biggest questions and fears are right now. The more you share, the better {selectedDoctor.name} can help.
+                      </>
+                    ) : (
+                      <>
+                        We know this can be difficult to write. Please take your time. This is your private space to share everything you're going through. Don't worry about medical terms or getting it perfect. Just tell us what's been happening, what your primary vet has said, and most importantly, what your biggest questions and fears are right now. The more you share, the better we can help.
+                      </>
+                    )}
                   </p>
                   <div>
                     <textarea

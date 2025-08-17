@@ -47,16 +47,26 @@ const specialists = {
 }
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default function SpecialistProfilePage({ params }: PageProps) {
-  const specialist = specialists[params.id as keyof typeof specialists]
+  const [specialist, setSpecialist] = useState<any>(null)
   const [showStickyFooter, setShowStickyFooter] = useState(false)
   const [stickyFooterPhase, setStickyFooterPhase] = useState<"soft" | "hard">("soft")
   const [scrollProgress, setScrollProgress] = useState(0)
+
+  // Handle async params for Next.js 15
+  useEffect(() => {
+    const getSpecialist = async () => {
+      const resolvedParams = await params
+      const foundSpecialist = specialists[resolvedParams.id as keyof typeof specialists]
+      setSpecialist(foundSpecialist)
+    }
+    getSpecialist()
+  }, [params])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,7 +109,14 @@ export default function SpecialistProfilePage({ params }: PageProps) {
   }
 
   if (!specialist) {
-    notFound()
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-brand-offwhite via-white to-brand-offwhite flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-brand-sage mx-auto mb-4"></div>
+          <p className="text-brand-charcoal">Loading specialist profile...</p>
+        </div>
+      </div>
+    )
   }
 
   return (

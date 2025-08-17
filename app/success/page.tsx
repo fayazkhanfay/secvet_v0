@@ -210,7 +210,7 @@ export default function PaymentSuccessPage() {
 
                 <div className="pt-4">
                   <Link
-                    href="/onboarding-concierge"
+                    href={isResearchPath && selectedDoctor ? `/onboarding-concierge?doctor=${doctorParam}` : "/onboarding-concierge"}
                     className="group relative inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-brand-sage via-brand-sage to-brand-sage/90 rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
                   >
                     {/* Enhanced Button Effects */}
