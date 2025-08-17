@@ -47,7 +47,7 @@ export function FAQSection() {
           </Accordion>
         </div>
         <div className="mt-8 text-center">
-          <a href="#" className="text-sm font-semibold text-brand-sage hover:text-brand-charcoal transition-colors">
+          <a href="/faq" className="text-sm font-semibold text-brand-sage hover:text-brand-charcoal transition-colors">
             View All Questions &rarr;
           </a>
         </div>
